@@ -15,8 +15,8 @@ resource "vault_auth_backend" "aws" {
   identity_token_key = vault_identity_oidc_key.plugin_wif.id
 
   tune {
-    default_lease_ttl = 60 * 30     # 30 minutes
-    max_lease_ttl     = 60 * 60 * 2 # 2 hours
+    default_lease_ttl = "30m"
+    max_lease_ttl     = "2h"
   }
 }
 

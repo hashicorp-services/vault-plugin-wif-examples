@@ -21,8 +21,9 @@ resource "vault_gcp_auth_backend" "gcp" {
   identity_token_audience = local.identity_token_audience
   service_account_email   = "vault-plugin-wif-sa-${random_id.vault_plugin_wif_id.hex}@${var.gcp_project_id}.iam.gserviceaccount.com"
   tune {
-    default_lease_ttl = 60 * 30     # 30 minutes
-    max_lease_ttl     = 60 * 60 * 2 # 2 hours
+    default_lease_ttl = "30m"
+    max_lease_ttl     = "2h"
+    token_type        = "default-service"
   }
 }
 
