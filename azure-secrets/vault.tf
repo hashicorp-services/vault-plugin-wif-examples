@@ -1,3 +1,7 @@
+provider "vault" {
+  # address = var.vault_address
+}
+
 resource "vault_identity_oidc" "issuer_url" {
   issuer = var.public_oidc_issuer_url
 }
@@ -40,6 +44,6 @@ resource "vault_azure_secret_backend_role" "test" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "vault-plugin-wif"
+  name     = var.app_prefix
   location = "UK West"
 }

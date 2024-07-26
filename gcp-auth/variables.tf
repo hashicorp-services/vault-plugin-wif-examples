@@ -1,6 +1,6 @@
 variable "gcp_project_id" {
   type        = string
-  description = "The ID for your GCP project"
+  description = "The ID of the GCP project."
 }
 
 variable "public_oidc_issuer_url" {
@@ -11,6 +11,18 @@ variable "public_oidc_issuer_url" {
     condition     = startswith(var.public_oidc_issuer_url, "https://")
     error_message = "The 'public_oidc_issuer_url' must start with https://, e.g. 'https://vault.foo.com'."
   }
+}
+
+variable "app_prefix" {
+  type        = string
+  description = "The prefix for the Vault plugin app"
+  default     = "vault-plugin-wif"
+}
+
+variable "vault_namespace_id" {
+  type        = string
+  description = "Vault namespace ID, not the name or path."
+  default     = "root"
 }
 
 variable "activate_apis" {
@@ -36,4 +48,3 @@ variable "vault_gcp_auth_permissions" {
     "resourcemanager.projects.get"
   ]
 }
-

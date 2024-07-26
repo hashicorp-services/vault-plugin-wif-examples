@@ -1,3 +1,7 @@
+provider "vault" {
+  # address = var.vault_address
+}
+
 resource "vault_identity_oidc" "issuer_url" {
   issuer = var.public_oidc_issuer_url
 }
