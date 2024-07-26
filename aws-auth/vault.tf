@@ -14,7 +14,7 @@ resource "vault_identity_oidc_key" "plugin_wif" {
   allowed_client_ids = [var.aws_audience]
 }
 
-resource "vault_auth_backend" "aws" {
+resource "vault_auth_backend" "plugin_wif" {
   type               = "aws"
   identity_token_key = vault_identity_oidc_key.plugin_wif.id
 
@@ -24,16 +24,16 @@ resource "vault_auth_backend" "aws" {
   }
 }
 
-resource "vault_aws_auth_backend_client" "aws" {
-  backend                 = vault_auth_backend.aws.path
+resource "vault_aws_auth_backend_client" "plugin_wif" {
+  backend                 = vault_auth_backend.plugin_wif.path
   identity_token_audience = var.aws_audience
   role_arn                = aws_iam_role.vault_plugin_wif_role.arn
   identity_token_ttl      = 60 * 5 # 5 minutes
 }
 
 
-# resource "vault_aws_auth_backend_role" "aws" {
-#   backend                  = vault_auth_backend.aws.path
+# resource "vault_aws_auth_backend_role" "plugin_wif" {
+#   backend                  = vault_auth_backend.plugin_wif.path
 #   role                     = "test"
 #   auth_type                = "iam"
 #   bound_iam_principal_arns = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*"]

@@ -15,11 +15,11 @@ resource "vault_identity_oidc_key" "plugin_wif" {
 }
 
 data "vault_generic_secret" "azure_secret_mount_details" {
-  path    = "sys/mounts/${vault_azure_secret_backend.azure.path}"
+  path    = "sys/mounts/${vault_azure_secret_backend.plugin_wif.path}"
   version = 1
 }
 
-resource "vault_azure_secret_backend" "azure" {
+resource "vault_azure_secret_backend" "plugin_wif" {
   path                    = "azure"
   subscription_id         = data.azurerm_subscription.current.subscription_id
   tenant_id               = data.azurerm_subscription.current.tenant_id
@@ -29,21 +29,18 @@ resource "vault_azure_secret_backend" "azure" {
   identity_token_key      = vault_identity_oidc_key.plugin_wif.id
 }
 
-resource "vault_azure_secret_backend_role" "test" {
-  backend = vault_azure_secret_backend.azure.path
-  role    = "test"
-  ttl     = 600
-  max_ttl = 900
-  # sign_in_audience = var.azure_audience
-  # application_object_id = var.azure_data_plane_access_object_id
+# resource "vault_azure_secret_backend_role" "plugin_wif" {
+#   backend = vault_azure_secret_backend.plugin_wif.path
+#   role    = "test"
+#   ttl     = 600
+#   max_ttl = 900
+#   azure_roles {
+#     role_name = "Reader"
+#     scope     = azurerm_resource_group.example.id
+#   }
+# }
 
-  azure_roles {
-    role_name = "Reader"
-    scope     = azurerm_resource_group.example.id
-  }
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = var.app_prefix
-  location = "UK West"
-}
+# resource "azurerm_resource_group" "example" {
+#   name     = var.app_prefix
+#   location = "UK West"
+# }

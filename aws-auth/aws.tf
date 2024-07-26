@@ -37,7 +37,7 @@ resource "aws_iam_role" "vault_plugin_wif_role" {
         "Action" : "sts:AssumeRoleWithWebIdentity",
         "Condition" : {
           "StringEquals" : {
-            "${local.oidc_issuer_without_https}:sub" : "plugin-identity:${var.vault_namespace_id}:auth:${vault_auth_backend.aws.accessor}",
+            "${local.oidc_issuer_without_https}:sub" : "plugin-identity:${var.vault_namespace_id}:auth:${vault_auth_backend.plugin_wif.accessor}",
             "${local.oidc_issuer_without_https}:aud" : "${var.aws_audience}"
           }
         }
