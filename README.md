@@ -11,7 +11,7 @@ Plugins like the AWS Secrets Engine require static security credentials. The ope
 
 ## Security Considerations
 ### Vault Mount isolation & Protecting against privilege escalation
-When configuring your cloud provider to trust Vault's OIDC provider, it is recommended to set at least one condition. This ensures segregation between different Vault mounts. We recommend using the `sub` claim, which includes the mount accessor in its value (e.g., `plugin-identity:namespace_id:secret`
+When configuring your cloud provider to trust Vault's OIDC provider, it is recommended to set at least one condition. This ensures segregation between different Vault mounts. We recommend using the `sub` claim, which includes the mount accessor in its value (e.g., `plugin-identity:namespace_id:secret:gcp_45789da7`
 ) and restricts token requests to the intended mount.
 
 
@@ -80,3 +80,6 @@ When configuring your cloud provider to trust Vault's OIDC provider, it is recom
     - [Azure](https://developer.hashicorp.com/vault/docs/auth/azure#plugin-workload-identity-federation-wif)
     - [GCP](https://developer.hashicorp.com/vault/docs/auth/gcp#plugin-workload-identity-federation-wif)
 - [Vault Identity Tokens API](https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens)
+
+### Cloud Provider documentation
+- [GCP - Best practices for using Workload Identity Federation](https://cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation)
