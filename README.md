@@ -40,7 +40,7 @@ When configuring your cloud provider to trust Vault's OIDC provider, it is recom
 }
 ```
 
-#### AWS Auth Method from a nested the `root` namespace.
+#### AWS Auth Method from the `root` namespace.
 
 ```json
 {
