@@ -63,6 +63,6 @@ resource "google_project_iam_custom_role" "vault_plugin_wif_gcp_auth" {
 resource "google_project_iam_member" "vault_plugin_wif_gcp_auth" {
   project = var.gcp_project_id
   role    = google_project_iam_custom_role.vault_plugin_wif_gcp_auth.name
-  member  = google_service_account.vault_plugin_wif_gcp_auth.member
+  member  = google_service_account.vault_plugin_wif.member
 }
 
