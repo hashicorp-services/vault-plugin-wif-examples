@@ -33,6 +33,13 @@ variable "azure_location" {
   nullable    = false
 }
 
+variable "azure_subscription_id" {
+  type        = string
+  description = "Azure subscription ID for the resource group, Key Vault, and role assignment. Required by the azurerm provider (v4+); leave null to source it from the ARM_SUBSCRIPTION_ID environment variable."
+  default     = null
+  nullable    = true
+}
+
 variable "azure_audience" {
   type        = string
   description = "Audience (aud) claim of the WIF identity token. Azure's federated identity credentials expect 'api://AzureADTokenExchange' by default; the same value is pinned by the OIDC key's allowed_client_ids and the federated identity credential's audiences."

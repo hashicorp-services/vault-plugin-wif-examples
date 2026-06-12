@@ -6,13 +6,11 @@ terraform {
     vault = {
       source = "hashicorp/vault"
       # vault_activation_flags + WIF write-only fields require Vault 2.0.0+.
-      # Pin to 6.x to avoid an unreviewed major upgrade.
       version = "~> 6.0"
     }
     aws = {
-      source = "hashicorp/aws"
-      # Pinned to 5.x; provider 6.x exists and needs a reviewed migration.
-      version = "~> 5.57"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
     tls = {
       source  = "hashicorp/tls"

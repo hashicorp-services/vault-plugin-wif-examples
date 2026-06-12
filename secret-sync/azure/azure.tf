@@ -1,4 +1,7 @@
 provider "azurerm" {
+  # azurerm v4+ requires an explicit subscription; null falls back to ARM_SUBSCRIPTION_ID.
+  subscription_id = var.azure_subscription_id
+
   features {
     key_vault {
       # Purge/recover so destroy+apply with the same vault name is repeatable
@@ -80,12 +83,12 @@ resource "azurerm_resource_group" "secrets_sync" {
 # Key Vault receiving the synced secret. RBAC authorization (not access policies)
 # so the SP gets data-plane access via a role assignment.
 resource "azurerm_key_vault" "secrets_sync" {
-  name                      = "kv-${var.tenant_id}-${random_string.suffix.result}"
-  resource_group_name       = azurerm_resource_group.secrets_sync.name
-  location                  = azurerm_resource_group.secrets_sync.location
-  tenant_id                 = data.azurerm_client_config.current.tenant_id
-  sku_name                  = "standard"
-  enable_rbac_authorization = true
+  name                       = "kv-${var.tenant_id}-${random_string.suffix.result}"
+  resource_group_name        = azurerm_resource_group.secrets_sync.name
+  location                   = azurerm_resource_group.secrets_sync.location
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  sku_name                   = "standard"
+  rbac_authorization_enabled = true
 
   tags = local.common_tags
 }
