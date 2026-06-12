@@ -2,11 +2,17 @@ provider "azurerm" {
   # azurerm v4+ requires an explicit subscription; null falls back to ARM_SUBSCRIPTION_ID.
   subscription_id = var.azure_subscription_id
 
+  # Don't auto-register resource providers: the example uses already-registered RPs
+  # (e.g. Microsoft.KeyVault), and the v4 default ("core") needs elevated perms and
+  # stalls provider startup on some subscriptions.
+  resource_provider_registrations = "none"
+
   features {
     key_vault {
-      # Purge/recover so destroy+apply with the same vault name is repeatable
-      # despite Key Vault's 90-day soft-delete.
-      purge_soft_delete_on_destroy    = true
+      # The random_string suffix already gives each apply a unique vault name, so
+      # skip the slow (~10 min) synchronous purge: destroy only soft-deletes (fast)
+      # and Azure expires the vault after 90 days. recover covers fixed-name reuse.
+      purge_soft_delete_on_destroy    = false
       recover_soft_deleted_key_vaults = true
     }
   }
