@@ -32,3 +32,8 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Terraform dependency lock files. These examples are meant to be initialised
+# against the published hashicorp/vault provider; committing a lock would pin a
+# local or unreleased provider build, so keep lock files out of version control.
+**/.terraform.lock.hcl

@@ -2,6 +2,20 @@
 ### Solving the secret-zero problem through WIF to establish trust with CSP Plugins
 Plugins like the AWS Secrets Engine require static security credentials. The operator supplies the long-lived and highly privileged AWS credentials in the plugin configuration. Plugin WIF enables secretless configuration by integrating Vault's identity provider with plugins, providing them an identity source (JWT) that Vault can use to exchange cloud credentials via OIDC. This secretless configuration reduces security concerns associated with using long-lived, highly privileged credentials. This solution is available for AWS, GCP, and Azure secret engines and authentication methods.
 
+## Examples in this repository
+
+This repository contains two distinct WIF use cases:
+
+- **Plugin WIF** (documented below) — secretless configuration for the AWS, GCP, and Azure
+  **secrets engines and auth methods**, available from Vault Enterprise 1.16/1.17.
+- **Secrets sync WIF** ([`secret-sync/`](secret-sync/)) — replicate a Vault KV secret into a cloud
+  secret store over WIF, with no static cloud credentials. Requires **Vault Enterprise 2.0.0+** and
+  uses a distinct issuer path (`identity/oidc/secrets-sync`) and `sub` format. Each cloud has its
+  own Terraform example and README:
+  - [AWS Secrets Manager](secret-sync/aws/)
+  - [GCP Secret Manager](secret-sync/gcp/)
+  - [Azure Key Vault](secret-sync/azure/)
+
 ## Prerequisites
 - Vault Enterprise 1.17 (WIF for AWS Secrets Engine is available from version 1.16).
 - [Terraform Provider Vault](https://github.com/hashicorp/terraform-provider-vault)  v4.3.0 or newer.
