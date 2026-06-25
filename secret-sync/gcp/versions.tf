@@ -5,8 +5,8 @@ terraform {
   required_providers {
     vault = {
       source = "hashicorp/vault"
-      # vault_activation_flags + WIF write-only fields require Vault 2.0.0+.
-      version = "~> 6.0"
+      # Requires Vault Enterprise 2.0.0+ (WIF *_wo fields) and provider 5.10+ (vault_activation_flags).
+      version = "~> 5.10"
     }
     google = {
       source  = "hashicorp/google"
